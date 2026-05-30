@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>シュミテキストEditor</title>
+    <style>
+        body{
+            color: #aaa;
+            background-color: #311;
+            font-family: monospace;
+            padding: 1.5em;
+        }
+        h1{
+            color: #f1f1f1;
+            font-family: Impact;
+        }
+        h3{
+            font-size: 150%;
+        }
+        textarea{
+            color: #eee;
+            background-color: #533;
+            font-family: monospace;
+        }
+        a:link{
+            color: #48d1cc;
+        }
+        a:visited{
+            color: #4cd147;
+        }
+    </style>
+</head>
+<body>
+    <h1>シュミテキストEditor</h1>
+    <p id="message"></p>
+    <p><a href="https://kakaka-momen.github.io/syumi/" target="_blank">
+    シュミテクト資料室はこちら</a></p>
+    <h3 id="result">0</h3>
+    <p></p>
+    <form> <!--onkeyup="ShowLength(value)-->
+    <textarea rows="15" cols="55" id="field";></textarea>
+    </form>
+    <p>🌮存分に書くがいい<br>
+    🌮☟このメモは最初のやつだけ保存されるよ☟</p>
+    <form> <!--onkeyup="ShowLength(value)-->
+    <textarea rows="7.5" cols="22.5" id="memomo";></textarea>
+    <textarea rows="7.5" cols="22.5";></textarea><br>
+    <textarea rows="7.5" cols="22.5";></textarea>
+    <textarea rows="7.5" cols="22.5";></textarea><br>
+    <textarea rows="7.5" cols="22.5";></textarea>
+    <textarea rows="7.5" cols="22.5";></textarea>
+    </form>
+
+    <script>
+    /*function ShowLength( str ) {
+    document.getElementById("input-length").innerHTML = str.length;
+    }*/
+    const textarea = document.getElementById('field');
+textarea.addEventListener('input', function() {
+  // 入力した文字を取得
+  let thisVal = this.value;
+  // 改行を除去
+  thisVal = thisVal.replace(/\n/g, '');
+  // 文字数をカウント
+  const charCount = thisVal.length;
+  // 1文字ずつ分解して確認する
+  for (var i = 0; i < thisVal.length; i++) {
+    console.log(thisVal[i]);
+  }
+  // 文字数を表示
+  document.getElementById('result').innerText = charCount;
+});
+
+const memoarea = document.getElementById('memomo');
+
+textarea.value = localStorage.getItem('draft') ?? '';
+textarea.addEventListener('input', () => {
+    localStorage.setItem('draft', textarea.value);
+});
+
+memoarea.value = localStorage.getItem('draft_memo') ?? '';
+memoarea.addEventListener('input', () => {
+    localStorage.setItem('draft_memo', memoarea.value);
+});
+
+
+const texts = [
+  "人生の唯一の意義は、人のために生きることである。 ——レフ・トルストイ",
+  "失敗しなくちゃ、成功はしないわよ。 ——ココシャネル",
+  "うしろをふり向く必要はない。あなたの前にはいくらでも道があるのだから。 ――魯迅",
+  "私を会員にするようなクラブには入りたくない。 ――グルーチョ・マルクス",
+  "オーキドーキ。　――ルイージ・マリオ"
+];
+
+const randomIndex = Math.floor(Math.random() * texts.length);
+document.getElementById("message").textContent = texts[randomIndex];
+
+    </script>
+</body>
+</html>
