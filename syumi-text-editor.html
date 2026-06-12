@@ -44,14 +44,14 @@
     </form>
     <p>🌮私用に作りました<br>
     🌮文章は自動で保存されます。すごい！たぶんキャッシュクリアとかしたら消えます。<br>
-    🌮☟このメモも最初のやつだけ保存されるよ☟</p>
+    🌮☟このメモもぜーんぶ保存されるよ☟</p>
     <form> <!--onkeyup="ShowLength(value)-->
-    <textarea rows="7.5" cols="22.5" id="memomo";></textarea>
-    <textarea rows="7.5" cols="22.5";></textarea><br>
-    <textarea rows="7.5" cols="22.5";></textarea>
-    <textarea rows="7.5" cols="22.5";></textarea><br>
-    <textarea rows="7.5" cols="22.5";></textarea>
-    <textarea rows="7.5" cols="22.5";></textarea>
+    <textarea rows="7.5" cols="22.5" id="memomo_0";></textarea>
+    <textarea rows="7.5" cols="22.5" id="memomo_1";></textarea><br>
+    <textarea rows="7.5" cols="22.5" id="memomo_2";></textarea>
+    <textarea rows="7.5" cols="22.5" id="memomo_3";></textarea><br>
+    <textarea rows="7.5" cols="22.5" id="memomo_4";></textarea>
+    <textarea rows="7.5" cols="22.5" id="memomo_5";></textarea>
     </form>
 
     <script>
@@ -81,11 +81,20 @@ textarea.addEventListener('input', () => {
     localStorage.setItem('draft', textarea.value);
 });
 
+/*
 memoarea.value = localStorage.getItem('draft_memo') ?? '';
 memoarea.addEventListener('input', () => {
     localStorage.setItem('draft_memo', memoarea.value);
 });
+*/
 
+for (let i = 0; i < 6; i++) {
+    const el = document.getElementById(`memomo_${i}`);
+    el.value = localStorage.getItem(`draft_memo_${i}`) ?? '';
+    el.addEventListener('input', () => {
+        localStorage.setItem(`draft_memo_${i}`, el.value);
+    });
+}
 
 const texts = [
   "人生の唯一の意義は、人のために生きることである。 ——レフ・トルストイ",
